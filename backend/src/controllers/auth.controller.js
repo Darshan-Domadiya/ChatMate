@@ -113,11 +113,9 @@ const updateProfilePic = async (req, res) => {
     const cloudinaryResponse = await cloudinary.uploader.upload(profilePic);
 
     if (!cloudinaryResponse) {
-      return res
-        .status(500)
-        .json({
-          message: "Something went wrong while uploading profile image",
-        });
+      return res.status(500).json({
+        message: "Something went wrong while uploading profile image",
+      });
     }
 
     const updatedUser = await User.findByIdAndUpdate(
@@ -128,16 +126,25 @@ const updateProfilePic = async (req, res) => {
       { new: true }
     );
 
-    return res
-      .status(200)
-      .json({
-        message: "Profile pic updated successfully!",
-        user: updatedUser,
-      });
+    return res.status(200).json({
+      message: "Profile pic updated successfully!",
+      user: updatedUser,
+    });
   } catch (error) {
     console.log("ERROR while uploading profile pic", error);
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
-export { loginUser, signUp, logoutUser, updateProfilePic };
+const authCheck = (req, res) => {
+  try {
+    return res
+      .status(200)
+      .json({ message: "Authenticated user!", user: req.user });
+  } catch (error) {
+    console.log("ERROR while authenticating user", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export { loginUser, signUp, logoutUser, updateProfilePic, authCheck };

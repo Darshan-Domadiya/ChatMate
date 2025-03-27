@@ -6,7 +6,7 @@ const authenticateUser = async (req, res, next) => {
 
   try {
     if (!token) {
-      return res.status(401).json({ message: "Invalid token, Unauthorized!" });
+      return res.status(401).json({ message: "No token provided!" });
     }
 
     const decodedToken = verifyUserToken(token);
