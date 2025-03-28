@@ -1,5 +1,6 @@
 import Message from "../models/message.model.js";
 import User from "../models/user.model.js";
+import cloudinary from "../utils/cloudinary.js";
 
 const getUsersForSidebar = async (req, res) => {
   try {
@@ -37,4 +38,34 @@ const getMessages = async (req, res) => {
   }
 };
 
-export { getUsersForSidebar, getMessages };
+const sendMessage = async (req, res) => {
+  try {
+    const { image, text } = req.body;
+
+    const { id: receiverId } = req.params;
+    const senderId = req.user._id;
+
+    let imageUrl;
+
+    if (image) {
+      const uploadedResponse = await cloudinary.uploader.upload(image);
+      imageUrl = uploadedResponse.secure_url;
+    }
+
+    const newMessage = await Message.create({
+      senderId,
+      receiverId,
+      text,
+      image: imageUrl,
+    });
+
+    await newMessage.save();
+
+    // real time functionality of socket.io goes here.
+  } catch (error) {
+    console.log("Errow while fetching messages", error);
+    return res.status(500).json({ message: "Internal Server Error!" });
+  }
+};
+
+export { getUsersForSidebar, getMessages, sendMessage };
