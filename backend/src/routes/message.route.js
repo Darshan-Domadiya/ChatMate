@@ -9,6 +9,7 @@ import {
 const router = express.Router();
 
 router.get("/users", authenticateUser, getUsersForSidebar);
+
 router.get("/userMessages/:id", authenticateUser, getMessages);
 
 router.post("/send-message/:id", authenticateUser, sendMessage);

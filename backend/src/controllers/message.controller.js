@@ -62,6 +62,10 @@ const sendMessage = async (req, res) => {
     await newMessage.save();
 
     // real time functionality of socket.io goes here.
+
+    return res
+      .status(201)
+      .json({ message: "New message is created!", newMessage });
   } catch (error) {
     console.log("Errow while fetching messages", error);
     return res.status(500).json({ message: "Internal Server Error!" });

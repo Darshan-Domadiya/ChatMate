@@ -18,6 +18,6 @@ router.post("/logout", logoutUser);
 
 router.put("/update", authenticateUser, updateProfilePic);
 
-router.get("/check", authenticateUser, authCheck);
+router.get("/authCheck", authenticateUser, authCheck);
 
 export default router;

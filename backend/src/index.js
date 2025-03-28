@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./utils/db.js";
+import cors from "cors";
 
 // imported routes.
 import authRoutes from "./routes/auth.route.js";
@@ -11,6 +12,12 @@ dotenv.config({ path: "./src/.env" });
 const app = express();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: "http://localhost:5173/",
+    withCredentials: true,
+  })
+);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/message", messageRoutes);
