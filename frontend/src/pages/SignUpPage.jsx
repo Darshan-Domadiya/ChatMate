@@ -35,6 +35,10 @@ const SignUpPage = () => {
     return true;
   };
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -75,11 +79,11 @@ const SignUpPage = () => {
                 </div>
                 <input
                   type="text"
+                  name="fullName"
+                  onChange={handleChange}
+                  value={formData.fullName}
                   className="input input-bordered w-full pl-10"
                   placeholder="John Doe"
-                  onChange={(e) =>
-                    setFormData({ ...formData, fullName: e.target.value })
-                  }
                 />
               </div>
             </div>
@@ -95,11 +99,11 @@ const SignUpPage = () => {
 
                 <input
                   type="text"
+                  value={formData.email}
                   className="input input-bordered w-full pl-10"
                   placeholder="you@example.com"
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
+                  name="email"
+                  onChange={handleChange}
                 />
               </div>
             </div>
@@ -114,11 +118,11 @@ const SignUpPage = () => {
                 </div>
                 <input
                   type={showPassword ? "password" : "text"}
+                  value={formData.password}
                   className="input input-bordered w-full pl-10"
                   placeholder="••••••••"
-                  onChange={(e) =>
-                    setFormData({ ...formData, password: e.target.value })
-                  }
+                  name="password"
+                  onChange={handleChange}
                 />
                 <button
                   type="button"

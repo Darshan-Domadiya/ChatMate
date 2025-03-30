@@ -36,12 +36,14 @@ const loginUser = async (req, res) => {
 };
 
 const signUp = async (req, res) => {
-  const { fullName, email, password, profilePic } = req.body;
+  const { fullName, email, password } = req.body;
 
   try {
-    if (!(fullName && email && password)) {
-      return res.status(404).json({ message: "All fields are required*!" });
+    if (!fullName || !email || !password) {
+      return res.status(404).json({ message: "All fields are required!" });
     }
+
+    console.log(fullName, email, password);
 
     if (password.length < 6) {
       return res
