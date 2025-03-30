@@ -28,7 +28,8 @@ const SignUpPage = () => {
     if (!formData.email.trim()) return toast.error("Email is required!");
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
       return toast.error("Invalid Email!");
-    if (!formData.password.length < 6)
+    if (!formData.password.trim()) return toast.error("Password is required!");
+    if (formData.password.length < 6)
       return toast.error("Minimum 6 characters are required for password!");
 
     return true;
@@ -38,6 +39,8 @@ const SignUpPage = () => {
     e.preventDefault();
 
     const success = validateForm();
+
+    if (success === true) signUp(formData);
   };
 
   return (
@@ -85,12 +88,13 @@ const SignUpPage = () => {
               <label className="label">
                 <span className="label-text font-medium">Email</span>
               </label>
-              <div className="relative">
+              <div className="relative ">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Mail className="size-5 text-base-content/40" />
                 </div>
+
                 <input
-                  type="email"
+                  type="text"
                   className="input input-bordered w-full pl-10"
                   placeholder="you@example.com"
                   onChange={(e) =>
