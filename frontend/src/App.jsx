@@ -7,11 +7,13 @@ import ProfilePage from "./pages/ProfilePage";
 import SettingsPage from "./pages/SettingsPage";
 import Navbar from "./components/Navbar";
 import { store } from "./store/store.js";
+import { themeStore } from "./store/themeStore.js";
 import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
   const { authUser, checkAuth, isCheckingAuth } = store();
+  const { theme } = themeStore();
 
   useEffect(() => {
     checkAuth();
@@ -26,8 +28,7 @@ const App = () => {
   }
 
   return (
-    <>
-      <Toaster />
+    <div data-theme={theme}>
       <Navbar />
 
       <Routes>
@@ -46,7 +47,8 @@ const App = () => {
         <Route path="/profile" element={<ProfilePage />} />
         <Route path="/settings" element={<SettingsPage />} />
       </Routes>
-    </>
+      <Toaster />
+    </div>
   );
 };
 

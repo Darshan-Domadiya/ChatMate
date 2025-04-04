@@ -63,7 +63,6 @@ const signUp = async (req, res) => {
       fullName,
       email,
       password: hashedPassword,
-      profilePic: profilePic ? profilePic : "",
     });
 
     if (!createdUser) {
