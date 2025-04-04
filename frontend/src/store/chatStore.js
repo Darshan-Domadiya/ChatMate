@@ -17,8 +17,24 @@ export const chatStore = create((set) => ({
       set({ users: res.data });
     } catch (error) {
       console.log("ERROR while getting all users!", error);
+      toast.error(error.response.data.message);
     } finally {
       set({ isUsersLoading: false });
+    }
+  },
+
+  getMessages: async (clickedUserId) => {
+    set({ isMessagesLoading: true });
+
+    try {
+      const res = await axiosInstance.get(
+        `/message/userMessages/${clickedUserId}`
+      );
+      set({ messages: res.data });
+    } catch (error) {
+      toast.error(error.respose.data.message);
+    } finally {
+      set({ isMessagesLoading: false });
     }
   },
 }));
