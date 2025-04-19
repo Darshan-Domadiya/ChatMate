@@ -4,7 +4,8 @@ import SideBarSkeleton from "./SideBarSkeleton";
 import { Users } from "lucide-react";
 
 const Sidebar = () => {
-  const { users, getUser, setSelectedUser, selectedUser , isUsersLoading } = chatStore();
+  const { users, getUser, setSelectedUser, selectedUser, isUsersLoading } =
+    chatStore();
 
   const onlineUsers = [];
   const [showOnlineOnly, setShowOnlineOnly] = useState(false);
@@ -40,13 +41,13 @@ const Sidebar = () => {
 
       <div className="overflow-y-auto w-full py-3">
         {filteredUsers.map((user) => (
-          
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
-            className= {`w-full p-3 flex items-center gap-3
+            className={`w-full p-3 flex items-center gap-3
               hover:bg-base-300 transition-colors
-              ${selectedUser?._id === user._id
+              ${
+                selectedUser?._id === user._id
                   ? "bg-base-300 ring-1 ring-base-300"
                   : ""
               }
@@ -74,15 +75,12 @@ const Sidebar = () => {
               </div>
             </div>
           </button>
-            
         ))}
 
-        {filteredUsers.length === 0 && (
+        {onlineUsers.length === 0 && (
           <div className="text-center text-zinc-500 py-4">No online users</div>
         )}
-
       </div>
-      
     </aside>
   );
 };
