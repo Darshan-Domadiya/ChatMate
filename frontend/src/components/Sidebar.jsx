@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { chatStore } from "../store/chatStore";
-import SideBarSkeleton from "./SideBarSkeleton";
+import SideBarSkeleton from "./skeletons/SideBarSkeleton";
 import { Users } from "lucide-react";
 import { store } from "../store/store";
 
