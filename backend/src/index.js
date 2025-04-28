@@ -7,10 +7,9 @@ import cookieParser from "cookie-parser";
 // imported routes.
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
+import { app, server } from "./utils/socketio.js";
 
 dotenv.config({ path: "./src/.env" });
-
-const app = express();
 
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ extended: true, limit: "50mb" }));
@@ -28,6 +27,6 @@ app.use("/api/message", messageRoutes);
 
 connectDB(process.env.MONGO_URI);
 
-app.listen(process.env.PORT, () => {
+server.listen(process.env.PORT, () => {
   console.log(`server is running on PORT ${process.env.PORT}`);
 });
