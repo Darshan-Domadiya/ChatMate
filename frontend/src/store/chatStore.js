@@ -31,6 +31,7 @@ export const chatStore = create((set, get) => ({
       const res = await axiosInstance.get(
         `/message/userMessages/${clickedUserId}`
       );
+
       set({ messages: res.data });
     } catch (error) {
       toast.error(error.respose.data.message);

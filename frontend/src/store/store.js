@@ -3,7 +3,7 @@ import { axiosInstance } from "../utils/axios.js";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
-const BASE_URL = "http://localhost:5001";
+const BASE_URL = "http://localhost:5174";
 
 export const store = create((set, get) => ({
   authUser: null,
@@ -46,6 +46,7 @@ export const store = create((set, get) => ({
       await axiosInstance.post("/auth/logout");
       toast.success("Logged out successfully!");
       get().disConnectSocket();
+      window.location.reload();
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -60,7 +61,7 @@ export const store = create((set, get) => ({
 
       get().connectSocket();
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response.message);
     } finally {
       set({ isLogginUp: false });
     }
